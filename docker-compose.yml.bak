@@ -3,10 +3,9 @@ services:
   webserver:
     container_name: webserver
     build: ./php
+    restart: 'unless-stopped'
     ports:
       - "80:80"
-      - "443:443"
-    restart: 'unless-stopped'
     volumes:
       - /var/www/:/var/www/html/
     links:
@@ -16,6 +15,8 @@ services:
       options:
         max-file: "2"
         max-size: "500k"
+    environment:
+      - VIRTUAL_HOST=virtualtest.dev
 
   mysql_server:
     container_name: mysql_server
@@ -35,5 +36,10 @@ services:
         max-file: "2"
         max-size: "500k"
 
+  nginx_server:
+    container_name: nginx_server
+    build: ./nginx
+    restart: 'unless-stopped'
+    
 volumes:
   mariadb-volume:

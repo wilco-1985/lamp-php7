@@ -8,6 +8,9 @@ RUN pecl install xdebug-2.7.0 && docker-php-ext-enable xdebug
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
 RUN docker-php-ext-install gd 
 
+COPY ./cert/ssl.crt /etc/apache2/ssl/ssl.crt
+COPY ./cert/ssl.key /etc/apache2/ssl/ssl.key
+
 RUN a2enmod rewrite macro
 RUN docker-php-ext-install mysqli  \
 && docker-php-ext-install zip \
@@ -20,5 +23,9 @@ COPY .vimrc /root/.vimrc
 COPY .vim/ /root/.vim/
 
 ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
-
+RUN a2enmod ssl
+RUN a2enmod vhost_alias
+#RUN a2enmod proxy
+#RUN a2enmod proxy_http
+#RUN a2enmod proxy_connect
 RUN service apache2 restart
