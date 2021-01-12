@@ -3,6 +3,11 @@ FROM php:7.3.3-apache
 RUN apt-get update && apt-get install -y mysql-client \
 zlib1g-dev libzip-dev libxml2-dev curl git subversion vim wget ssmtp libfreetype6-dev libjpeg62-turbo-dev libpng-dev
 
+RUN pecl channel-update pecl.php.net
+RUN pecl install -o -f redis \
+&& rm -rf /tmp/pear \
+&& docker-php-ext-enable redis
+
 RUN pecl install xdebug-2.7.0 && docker-php-ext-enable xdebug 
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 

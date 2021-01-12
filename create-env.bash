@@ -1,3 +1,5 @@
+echo 'TODO update apache config and pick document root.'
+
 #!/bin/bash
 
 #colors
@@ -8,6 +10,7 @@ NC='\033[0m' # No Color
 #vars
 storageFile=".projects"
 webRoot="/var/www/"
+documentRoot="/var/www/html/"
 domain=".local"
 
 

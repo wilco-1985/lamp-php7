@@ -11,12 +11,25 @@ services:
       - /var/www/:/var/www/html/
     links:
       - mysql_server
+      - redis_server
     logging:
       driver: "json-file"
       options:
         max-file: "2"
         max-size: "500k"
 
+  redis_server:
+    container_name: redish_cache
+    build: ./redish
+    ports: 
+      - "6379:6379"
+    restart: 'unless-stopped'
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "2"
+        max-size: "500k"
+   
   mysql_server:
     container_name: mysql_server
     volumes:
