@@ -12,6 +12,20 @@ services:
     links:
       - mysql_server
       - redis_server
+      - mailhog_server
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "2"
+        max-size: "500k"
+ 
+  mailhog_server:
+    container_name: mailhog
+    build: ./mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025" 
+    restart: 'unless-stopped'
     logging:
       driver: "json-file"
       options:
@@ -19,8 +33,8 @@ services:
         max-size: "500k"
 
   redis_server:
-    container_name: redish_cache
-    build: ./redish
+    container_name: redis_cache
+    build: ./redis
     ports: 
       - "6379:6379"
     restart: 'unless-stopped'

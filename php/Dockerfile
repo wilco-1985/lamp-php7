@@ -1,7 +1,9 @@
 FROM php:7.3.3-apache
 
-RUN apt-get update && apt-get install -y mysql-client \
+RUN apt-get update && apt-get install -y default-mysql-client -y \
 zlib1g-dev libzip-dev libxml2-dev curl git subversion vim wget ssmtp libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN pecl channel-update pecl.php.net
 RUN pecl install -o -f redis \
