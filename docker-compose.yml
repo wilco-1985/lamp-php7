@@ -43,7 +43,23 @@ services:
       options:
         max-file: "2"
         max-size: "500k"
-   
+  
+  myadmin:
+    container_name: myadmin
+    build: ./myadmin
+    restart: 'unless-stopped'
+    ports:
+      - "81:80"
+    environment:
+      - PMA_HOSTS=192.168.0.25:3306
+      - PMA_USER=root
+      - PMA_PASSWORD=rootPassword
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "2"
+        max-size: "500k"
+
   mysql_server:
     container_name: mysql_server
     volumes:

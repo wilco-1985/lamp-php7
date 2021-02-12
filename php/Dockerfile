@@ -1,7 +1,12 @@
 FROM php:7.3.3-apache
 
 RUN apt-get update && apt-get install -y default-mysql-client -y \
-zlib1g-dev libzip-dev libxml2-dev curl git subversion vim wget ssmtp libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+zlib1g-dev libzip-dev libxml2-dev curl git unzip -y \
+subversion vim wget ssmtp libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+nodejs
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -r
+RUN apt-get install -y nodejs
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
