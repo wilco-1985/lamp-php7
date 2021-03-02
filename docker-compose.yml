@@ -9,10 +9,6 @@ services:
     restart: 'unless-stopped'
     volumes:
       - /var/www/:/var/www/html/
-    links:
-      - mysql_server
-      - redis_server
-      - mailhog_server
     logging:
       driver: "json-file"
       options:
